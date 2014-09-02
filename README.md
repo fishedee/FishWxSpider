@@ -1,7 +1,10 @@
 FishWxSpider
 ============
 
-微信爬虫
+#介绍
+<pre>
+改造并使用phantomjs爬取微信数据
+</pre>
 
 #编译
 <pre>
