@@ -1,0 +1,116 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>抓取微信消息demo</title>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+				border:0px;
+				font-size:0px;
+			}
+			.body{
+				width:1110px;
+				margin:0 auto;
+			}
+			.left-docker{
+				display:inline-block;
+				vertical-align:top;
+				width:300px;
+				height:600px;
+				border:1px solid red;
+			}
+			.button{
+				margin:10px auto;
+				width:80px;
+				height:40px;
+				border:1px solid blue;
+				font-size:16px;
+				text-align:center;
+				line-height:40px;
+				background:yellow;
+			}
+			.button:hover{
+				background:blue;
+			}
+			.content{	
+				border:1px solid green;
+				overflow:scroll;
+				font-size:16px;
+				width:100%;
+				height:520px;
+			}
+			.right-docker{
+				display:inline-block;
+				vertical-align:top;
+				width:800px;
+				height:600px;
+				border:1px solid red;
+			}
+			.preview{
+				width:800px;
+				height:600px;
+			}
+		</style>
+		<script src="jquery.js">
+		</script>
+		<script>
+			$(document).ready(function(){
+				function reflash(){
+					$.getJSON("control.php?fun=msg",
+						{},
+						function(data,status){
+							if( status != 'success'){
+								//alert('网络错误，重启失败');
+								return;
+							}
+							if( data.retCode != 0 ){
+								//alert('业务错误，重启失败，' + data.retMsg);
+								return;
+							}
+							$(".content")[0].innerHTML = data.data ;
+						}
+					);
+					$(".preview")[0].src = "preview.jpg?tag=" + Math.random();
+					setTimeout(reflash,1000);
+				}
+				function restart(){
+					$.getJSON("control.php?fun=restart",
+						{},
+						function(data,status){
+							if( status != 'success'){
+								alert('网络错误，重启失败');
+								return;
+							}
+							if( data.retCode != 0 ){
+								alert('业务错误，重启失败，' + data.retMsg);
+								return;
+							}
+							alert('重启成功');
+						}
+					);
+				}
+				reflash();
+				$(".button").click(restart);
+			});
+		</script>
+	</head>
+	<body>
+		<div class="body">
+			<div class="left-docker">
+				<div class="controller">
+					<div class="button">
+						重新启动
+					</div>
+				</div>
+				<div class="content">
+					这里是拦截的内容
+				</div>
+			</div>
+			<div class="right-docker">
+				<img class="preview" src="preview.jpg"/>
+			</div>
+		</div>
+	</body>
+</html>
