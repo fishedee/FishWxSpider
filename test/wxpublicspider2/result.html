@@ -32,6 +32,7 @@
 					$(".introduce").text(data.introduce);
 					$(".img").attr("src",data.img);
 					$(".history").empty();
+					$(".historyurl").html('<a href="'+data.historyurl+'">历史消息url</a>');
 					var result = "";
 					for( var i in data.history ){
 						result += '<p><a href="' +
@@ -53,6 +54,8 @@
 			</div>
 			<div>
 				<img class="img" src=""/>
+			</div>
+			<div class="historyurl">
 			</div>
 			<div class="history">
 			</div>

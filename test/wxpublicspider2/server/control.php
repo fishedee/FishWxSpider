@@ -32,6 +32,12 @@
 			"data"=>$_GET['data']
 		);
 		$searchresult = invokePhantomjs($searchword);
+		
+		$onemssageurl = $searchresult->data->history[0]->link;
+		$biz = substr($onemssageurl,
+			strpos ($onemssageurl,"__biz")+6,
+			strpos ($onemssageurl,"&")-strpos ($onemssageurl,"__biz")-6);
+		$searchresult->data->historyurl = "http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=".$biz."#wechat_webview_type=1&wechat_redirect";
 		return $searchresult;
 	}
 	
