@@ -1,0 +1,61 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset="utf8"/>
+		<title>微信公众号历史消息抓取实例</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<style>
+			.full{
+				overflow:auto;
+			}
+		</style>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script>
+			function _get(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = decodeURI(window.location.search).substr(1).match(reg);
+				if (r != null) 
+					return unescape(r[2]); 
+				return null;
+			}
+			$(document).ready(function(){
+				$.get('server/control.php',{fun:"GetPublic",data:_get("id")},function(data){
+					data = JSON.parse(data);
+					if( data.code != 0 ){
+						alert(data.message);
+						return;
+					}
+					data = data.data;
+					
+					$(".name").text(data.name);
+					$(".title").text(data.title);
+					$(".introduce").text(data.introduce);
+					$(".img").attr("src",data.img);
+					$(".history").empty();
+					var result = "";
+					for( var i in data.history ){
+						result += '<p><a href="' +
+							encodeURI(data.history[i].link) + 
+							'">'+data.history[i].text+'</a></p>';
+					}
+					$(".history").append($(result));
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="full">
+			<div class="name">
+			</div>
+			<div class="title">
+			</div>
+			<div class="introduce">
+			</div>
+			<div>
+				<img class="img" src=""/>
+			</div>
+			<div class="history">
+			</div>
+		</div>
+	</body>
+</html>

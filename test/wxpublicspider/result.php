@@ -7,6 +7,8 @@
 	$paraUrl = explode('?',$public_history_newurl);
 	$para = $paraUrl[1];
 	$paraList = explode('&',$para);
+	var_dump($paraList);
+	exit();
 	$paraMap = array();
 	foreach( $paraList as $paraSingle ){
 		$paraMap[ substr($paraSingle,0,strpos($paraSingle,"=")) ] =

@@ -18,6 +18,7 @@ if (system.args.length === 1) {
 	page.viewportSize = { width: 800, height: 600 };
 	page.paperSize = { width: 800 , height: 600, margin: '0px' }
 
+	/*
     page.onResourceReceived = function (res) {
 		//只截取start封包
 		if( res.stage != 'start')
@@ -47,6 +48,7 @@ if (system.args.length === 1) {
 				'<br/>');
 		}
     };
+	*/
     page.open(address);
 	function test(){
 		page.render("preview.jpg");	

@@ -1,0 +1,55 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset="utf8"/>
+		<title>微信公众号历史消息抓取实例</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<style>
+			.keyword{
+				width:650px;
+				height:30px;
+			}
+			.search{
+				width:100px;
+				#height:30px;
+			}
+			.content{
+				top:30px;
+			}
+		</style>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(".search").click(function(){
+					$(".content").empty();
+					$.get('server/control.php',{fun:"SearchPublic",data:$(".word").val()},function(data){
+						data = JSON.parse(data);
+						if( data.code != 0 ){
+							alert(data.message);
+							return;
+						}
+						var result = "";
+						for( var i in data.data ){
+							result += '<p><a href=result.html?id=' +
+								encodeURIComponent(data.data[i].id) + 
+								'>'+data.data[i].text+'</a></p>';
+						}
+						$(".content").append($(result));
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="full">
+			<div class="topleft keyword">
+				<input class="textedit word" type="text" placeholder="请输入公众号关键词"/>
+			</div>
+			<div class="topright button search">
+				搜索
+			</div>
+			<div class="center content">
+			</div>
+		</div>
+	</body>
+</html>
